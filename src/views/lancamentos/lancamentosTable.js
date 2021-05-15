@@ -40,7 +40,7 @@ export default props => {
     } )
 
     return (
-        <table className="table table-hover">
+        <table className="table table-hover table-responsive">
             <thead>
                 <tr>
                     <th scope="col">Descrição</th>
