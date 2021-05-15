@@ -21,14 +21,14 @@ class Login extends React.Component {
   }
 
   entrar = () => {
-    this.service.autenticar({
-        email: this.state.email,
-        senha: this.state.senha
-      }).then((response) => {
-        this.context.iniciarSessao(response.data)
-        this.props.history.push('/home')
-      }).catch((erro) => {
-        mensagemErro(erro.response.data)
+      this.service.autenticar({
+          email: this.state.email,
+          senha: this.state.senha
+      }).then( response => {
+          this.context.iniciarSessao(response.data)
+          this.props.history.push('/home')
+      }).catch( erro => {
+         mensagemErro(erro.response.data)
       })
   }
 
