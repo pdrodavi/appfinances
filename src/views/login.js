@@ -28,7 +28,7 @@ class Login extends React.Component {
           this.context.iniciarSessao(response.data)
           this.props.history.push('/home')
       }).catch( erro => {
-         mensagemErro(erro.response.data)
+         mensagemErro("Erro ao autenticar!")
       })
   }
 
