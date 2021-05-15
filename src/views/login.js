@@ -9,10 +9,11 @@ import { mensagemErro } from "../components/toastr";
 import { AuthContext } from "../main/provedorAutenticacao";
 
 class Login extends React.Component {
+  
   state = {
-    email: "",
-    senha: "",
-  };
+    email: '',
+    senha: ''
+  }
 
   constructor() {
     super();
@@ -20,56 +21,47 @@ class Login extends React.Component {
   }
 
   entrar = () => {
-    this.service
-      .autenticar({
+    this.service.autenticar({
         email: this.state.email,
-        senha: this.state.senha,
+        senha: this.state.senha
+      }).then((response) => {
+        this.context.iniciarSessao(response.data)
+        this.props.history.push('/home')
+      }).catch((erro) => {
+        mensagemErro(erro.response.data)
       })
-      .then((response) => {
-        this.context.iniciarSessao(response.data);
-        this.props.history.push("/home");
-      })
-      .catch((erro) => {
-        mensagemErro(erro.response.data);
-      });
-  };
+  }
 
   prepareCadastrar = () => {
-    this.props.history.push("/cadastro-usuarios");
-  };
+    this.props.history.push('/cadastro-usuarios')
+  }
 
   render() {
     return (
       <div className="main row">
         <Card class="card" title="Login">
-          <form>
-            <FormGroup label="Email:" htmlFor="exampleInputEmail1">
-              <input
-                type="email"
+            <FormGroup label="Email: " htmlFor="exampleInputEmail1">
+              <input type="email"
                 value={this.state.email}
                 required
-                onChange={(e) => this.setState({ email: e.target.value })}
+                onChange={e => this.setState({ email: e.target.value })}
                 className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-                placeholder="Seu email"
-              />
+                placeholder="Seu email" />
             </FormGroup>
-            <FormGroup label="Senha:" htmlFor="exampleInputPassword1">
-              <input
-                type="password"
+            <FormGroup label="Senha: " htmlFor="exampleInputPassword1">
+              <input type="password"
                 value={this.state.senha}
                 required
-                onChange={(e) => this.setState({ senha: e.target.value })}
+                onChange={e => this.setState({ senha: e.target.value })}
                 className="form-control"
                 id="exampleInputPassword1"
-                placeholder="Sua senha"
-              />
+                placeholder="Sua senha"/>
             </FormGroup>
-            <button onSubmit={this.entrar} className="btn btn-success">
+            <button onClick={this.entrar} className="btn btn-success">
               <i className="pi pi-sign-in"></i>Entrar
             </button>
-          </form>
         </Card>
       </div>
     );
